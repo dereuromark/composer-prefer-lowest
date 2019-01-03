@@ -43,7 +43,7 @@ matrix:
 
 before_script:
   - if [[ $PREFER_LOWEST != 1 ]]; then composer install --prefer-source --no-interaction; fi
-  - if [[ $PREFER_LOWEST == 1 ]]; then composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
+  - if [[ $PREFER_LOWEST == 1 ]]; then composer update --prefer-lowest --prefer-dist --prefer-stable --no-interaction; fi
   - if [[ $PREFER_LOWEST == 1 ]]; then composer require --dev dereuromark/composer-prefer-lowest:dev-master; fi
 
 script:
@@ -60,6 +60,16 @@ vendor/bin/validate-prefer-lowest
 It returns the list of errors and exits with error code `1` if any violations are found.
 Otherwise it returns with success code `0`.
 
+### Prefer lowest
+Usually `composer update --prefer-lowest` suffices. 
+Make sure you have `"prefer-stable": true` in your composer.json for this to work.
+Otherwise you might have to use the longer version as outlined above.
+
+In general it is best to just use all flags for your CI script:
+```
+composer update --prefer-lowest --prefer-dist --prefer-stable --no-interaction
+```
+
 ### PHP version
 In general: Use the minimum PHP version for `prefer-lowest` as defined in your composer.json.
 
@@ -72,7 +82,7 @@ It is advised to also raise your composer.json entry for the min PHP version her
         "php": ">=5.6",
 ``` 
 
-### TODOS
+### TODOs
 - Better version handling, especially around special cases like suffixes.
 
 Help is greatly appreciated.
