@@ -1,0 +1,12 @@
+{
+    "packages": [
+        {
+            "name": "composer/semver",
+            "version": "1.4.2"
+        }
+    ],
+    "platform": {
+        "php": ">=5.6",
+        "ext-json": "*"
+    }
+}

@@ -64,7 +64,7 @@ class Validator {
 		if ($errors) {
 			echo count($errors) . ' version errors (make sure you ran `composer update --prefer-lowest` before):' . PHP_EOL;
 		}
-		foreach ($errors as $error) {
+		foreach ($errors as $package => $error) {
 			echo ' - ' . $package . ': ' . $error . PHP_EOL;
 		}
 
