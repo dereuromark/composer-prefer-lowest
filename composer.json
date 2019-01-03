@@ -23,6 +23,11 @@
 			"ComposerPreferLowest\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"ComposerPreferLowest\\Test\\": "tests/"
+		}
+	},
 	"bin": [
 		"bin/validate-prefer-lowest"
 	],

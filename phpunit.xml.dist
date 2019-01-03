@@ -1,0 +1,26 @@
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	processIsolation="false"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
+>
+	<testsuites>
+		<testsuite name="composer-prefer-lowest">
+			<directory>tests/</directory>
+		</testsuite>
+	</testsuites>
+
+    <!-- Prevent coverage reports from looking in tests, vendor, bin folders -->
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>
