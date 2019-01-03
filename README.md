@@ -14,7 +14,7 @@ This is useful for all libraries that want to make sure
 For details, see [Why is this useful?](https://evertpot.com/testing-composer-prefer-lowest/).
 This has been built after Composer didnt have the [motivation](https://github.com/composer/composer/issues/7849) for it.
 
-**A total must have** for
+**A total must-have** for
 - frameworks
 - framework plugins/addons (and testing against the framework minors)
 - custom libraries to be used by apps/projects which have at least one dependency to other libraries
