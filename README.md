@@ -10,9 +10,6 @@ This is useful for all libraries that want to make sure
 - no silent regressions (like using too new methods of depending libraries) sneaked in
 
 For details, see [Why is this useful?](https://evertpot.com/testing-composer-prefer-lowest/).
-This is not so useful for projects, as here there is no need to test against anything than latest versions already in use.
-Also, if your library has no dependencies, you can skip prefer-lowest checks as well as this validation.
-
 This has been built after Composer didnt have the [motivation](https://github.com/composer/composer/issues/7849) for it.
 
 **A total must have** for
@@ -21,6 +18,9 @@ This has been built after Composer didnt have the [motivation](https://github.co
 - custom libraries to be used by apps/projects which have at least one dependency to other libraries
 
 It is somewhat important for the involved packages to follow semver here. Otherwise some of the comparison might be problematic.
+
+This is not so useful for projects, as here there is no need to test against anything than latest versions already in use.
+Also, if your library has no dependencies, you can skip prefer-lowest checks as well as this validation.
 
 ## Installation
 It is recommended to run only for CI and `composer update --prefer-lowest`.
