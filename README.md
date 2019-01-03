@@ -28,6 +28,10 @@ As such, it suffices to add it conditionally here.
 
 E.g. for Travis CI:
 ```
+php:
+  - 5.6
+  - 7.3
+
 env:
   global:
     - DEFAULT=1
@@ -64,8 +68,8 @@ At this point, with it being EOL already, you can and should not use any PHP ver
 
 It is advised to also raise your composer.json entry for the min PHP version here. Use 5.6 or higher:
 ```
-	"require": {
-		"php": ">=5.6",
+    "require": {
+        "php": ">=5.6",
 ``` 
 
 ### TODOS
