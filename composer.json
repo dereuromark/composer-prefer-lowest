@@ -15,12 +15,17 @@
 		"composer/semver": "^1.4"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "^6.0 || ^7.0",
+		"phpunit/phpunit": "^5.7 || ^6.0 || ^7.0",
 		"fig-r/psr2r-sniffer": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
 			"ComposerPreferLowest\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"ComposerPreferLowest\\Test\\": "tests/"
 		}
 	},
 	"bin": [
@@ -29,6 +34,9 @@
 	"prefer-stable": true,
 	"minimum-stability": "dev",
 	"scripts": {
+		"test": "phpunit",
+		"phpstan": "phpstan analyse -c tests/phpstan.neon -l 5 src/",
+		"phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan && mv composer.backup composer.json",
 		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --extensions=php src/",
 		"cs-fix": "phpcbf -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --extensions=php src/"
 	},

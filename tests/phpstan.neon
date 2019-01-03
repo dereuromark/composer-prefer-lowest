@@ -1,0 +1,5 @@
+parameters:
+    autoload_files:
+        - tests/bootstrap.php
+
+    ignoreErrors:

@@ -35,3 +35,4 @@ phpunit.xml.dist export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
 .editorconfig export-ignore
+tests/files/ export-ignore
