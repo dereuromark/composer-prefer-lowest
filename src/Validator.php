@@ -47,9 +47,11 @@ class Validator {
 
 		$errors = [];
 		foreach ($lockInfo as $package => $version) {
-			$definedMinimum = $jsonInfo[$package];
+			$constraints = $jsonInfo[$package];
+			// We only need the first
+			$constraint = (new MinimumVersionParser())->parseConstraints($constraints);
 
-			$definedMinimum = $this->normalizeVersion($definedMinimum);
+			$definedMinimum = $this->normalizeVersion($constraint);
 			$version = $this->normalizeVersion($version);
 
 			if (Comparator::equalTo($definedMinimum, $version)) {
@@ -146,7 +148,7 @@ class Validator {
 	 * @return string
 	 */
 	protected function normalizeVersion($version) {
-		return (new VersionParser)->normalize($version);
+		return (new VersionParser())->normalize($version);
 	}
 
 }
