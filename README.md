@@ -1,6 +1,6 @@
 # Composer Prefer Lowest Validator
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg)](https://php.net/)
-[![License](https://poser.pugx.org/dereuromark/validate-prefer-lowest/license.svg)](https://packagist.org/packages/dereuromark/validate-prefer-lowest)
+[![License](https://poser.pugx.org/dereuromark/composer-prefer-lowest/license.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
 This validator will strictly check your required minimum versions and see if those are actually being tested against.
