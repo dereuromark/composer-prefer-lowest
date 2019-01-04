@@ -34,8 +34,9 @@ class ValidatorTest extends TestCase {
 		$this->assertSame($validator::CODE_ERROR, $returnCode);
 
 		$expected = <<<TXT
-1 version errors (make sure you ran `composer update --prefer-lowest` before):
+2 version errors (make sure you ran `composer update --prefer-lowest` before):
  - composer/semver: Defined `1.4.0.0` as minimum, but is `1.4.2.0`
+ - foo-bar/baz: Defined `2.3.1.0` as minimum, but is `3.1.0.0`
 
 TXT;
 		$this->assertSame($expected, $output);
