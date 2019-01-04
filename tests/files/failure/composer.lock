@@ -1,12 +1,16 @@
 {
-    "packages": [
-        {
-            "name": "composer/semver",
-            "version": "1.4.2"
-        }
-    ],
-    "platform": {
-        "php": ">=5.6",
-        "ext-json": "*"
-    }
+	"packages": [
+		{
+			"name": "composer/semver",
+			"version": "1.4.2"
+		},
+		{
+			"name": "foo-bar/baz",
+			"version": "3.1.0"
+		}
+	],
+	"platform": {
+		"php": ">=5.6",
+		"ext-json": "*"
+	}
 }
