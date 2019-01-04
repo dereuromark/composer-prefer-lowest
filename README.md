@@ -4,6 +4,7 @@
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/composer-prefer-lowest/license.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
+[![Total Downloads](https://poser.pugx.org/dereuromark/composer-prefer-lowest/d/total.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
 
 This validator will strictly compare the specified minimum versions of your composer.json with the ones actually used by the `prefer-lowest` composer update command option.
 
