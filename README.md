@@ -62,7 +62,7 @@ vendor/bin/validate-prefer-lowest
 It returns the list of errors and exits with error code `1` if any violations are found.
 Otherwise it returns with success code `0`.
 
-### Prefer lowest
+### Prefer stable
 Usually `composer update --prefer-lowest` suffices. 
 Make sure you have `"prefer-stable": true` in your composer.json for this to work.
 Otherwise you might have to use the longer version as outlined above.
