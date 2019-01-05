@@ -7,6 +7,10 @@
 		{
 			"name": "foo-bar/baz",
 			"version": "3.1.0"
+		},
+		{
+			"name": "my/warning",
+			"version": "1.2.1"
 		}
 	],
 	"platform": {

@@ -42,31 +42,47 @@ class Validator {
 	 */
 	protected function compare($lockFile, $jsonFile) {
 		$jsonInfo = $this->parseJsonFromFile($jsonFile);
-
 		$lockInfo = $this->parseLockFromFile($lockFile, $jsonInfo);
-
-		$errors = [];
+		if (!$jsonInfo || !$lockInfo) {
+			echo 'Make sure composer.json and composer.lock files are valid and that you have at least one dependency in require.';
+			return self::CODE_ERROR;
+		}
+		
+		$warnings = $errors = [];
 		foreach ($lockInfo as $package => $version) {
-			$constraints = $jsonInfo[$package];
+			$constraints = $jsonInfo[$package]['version'];
 			// We only need the first
 			$constraint = (new MinimumVersionParser())->parseConstraints($constraints);
 
 			$definedMinimum = $this->normalizeVersion($constraint);
 			$version = $this->normalizeVersion($version);
-
+			
 			if (Comparator::equalTo($definedMinimum, $version)) {
 				continue;
 			}
-
-			$errors[$package] = 'Defined `' . $definedMinimum . '` as minimum, but is `' . $version . '`';
+			
+			$message = 'Defined `' . $definedMinimum . '` as minimum, but is `' . $version . '`';
+			if ($jsonInfo[$package]['devVersion']) {
+				$warnings[$package] = $message;
+			} else {
+				$errors[$package] = $message;
+			}
 		}
 
 		if ($errors) {
 			$count = count($errors);
-			echo $count . ' version ' . ($count === 1 ? 'error' : 'errors') . ' (make sure you ran `composer update --prefer-lowest` before):' . PHP_EOL;
+			echo $count . ' ' . ($count === 1 ? 'error' : 'errors') . ' (make sure you ran `composer update --prefer-lowest` before):' . PHP_EOL;
 		}
 		foreach ($errors as $package => $error) {
 			echo ' - ' . $package . ': ' . $error . PHP_EOL;
+		}
+
+		if ($warnings) {
+			$count = count($warnings);
+			echo $count . ' ' . ($count === 1 ? 'warning' : 'warnings') . ' (impossible to test minimum version here):' . PHP_EOL;
+		}
+		foreach ($warnings as $package => $warning) {
+			echo ' - ' . $package . ': ' . $warning . PHP_EOL;
 		}
 
 		return !$errors ? static::CODE_SUCCESS : static::CODE_ERROR;
@@ -93,8 +109,16 @@ class Validator {
 			if (preg_match('#^dev-#', $version)) {
 				continue;
 			}
+			
+			$devVersion = null;
+			if (isset($json['require-dev'][$package])) {
+				$devVersion = $this->stripVersion($json['require-dev'][$package]);
+			}
 
-			$result[$package] = $this->stripVersion($version);
+			$result[$package] = [
+				'version' => $this->stripVersion($version),
+				'devVersion' => $devVersion,
+			];
 		}
 
 		return $result;
