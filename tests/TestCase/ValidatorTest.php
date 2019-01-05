@@ -44,4 +44,23 @@ TXT;
 		$this->assertSame($expected, $output);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testValidateInvalid() {
+		$validator = new Validator();
+
+		$path = TESTS . 'files' . DS . 'invalid' . DS;
+
+		ob_start();
+		$returnCode = $validator->validate($path);
+
+		$output = ob_get_clean();
+
+		$this->assertSame($validator::CODE_ERROR, $returnCode);
+
+		$expected = 'Make sure composer.json and composer.lock files are valid and that you have at least one dependency in require.';
+		$this->assertSame($expected, $output);
+	}
+
 }

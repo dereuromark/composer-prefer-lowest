@@ -96,7 +96,7 @@ class Validator {
 		$content = file_get_contents($jsonFile);
 		$json = json_decode($content, true);
 
-		if (empty($json['require'])) {
+		if (!$json || empty($json['require'])) {
 			return [];
 		}
 
@@ -149,6 +149,9 @@ class Validator {
 	protected function parseLockFromFile($lockFile, array $jsonInfo) {
 		$content = file_get_contents($lockFile);
 		$json = json_decode($content, true);
+		if (!$json) {
+			return [];
+		}
 
 		$result = [];
 

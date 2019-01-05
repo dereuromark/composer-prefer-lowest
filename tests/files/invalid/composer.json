@@ -1,0 +1,7 @@
+{
+	"require": {
+		"php": ">=5.6",
+		"ext-json": "*",
+		"trailing/comma": "^1.4.0",
+	}
+}
