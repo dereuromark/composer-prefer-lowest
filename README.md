@@ -25,7 +25,16 @@ It is somewhat important for the involved packages to follow semver here. Otherw
 This is not so useful for projects, as here there is no need to test against anything than latest versions already in use.
 Also, if your library has no dependencies, you can skip prefer-lowest checks as well as this validation.
 
-## Installation
+## Local Test-Run
+You want to give it a quick test-spin for one of your libraries? See what results it yields?
+```
+composer update --prefer-lowest --prefer-dist --prefer-stable
+composer require --dev dereuromark/composer-prefer-lowest
+vendor/bin/validate-prefer-lowest
+```
+If there is no output, that's good. `echo $?` should return `0` (success).
+
+## CI Installation
 It is recommended to run only for CI and `composer update --prefer-lowest`.
 As such, it suffices to add it conditionally here.
 
