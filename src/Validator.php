@@ -45,9 +45,9 @@ class Validator {
 		$lockInfo = $this->parseLockFromFile($lockFile, $jsonInfo);
 		if (!$jsonInfo || !$lockInfo) {
 			echo 'Make sure composer.json and composer.lock files are valid and that you have at least one dependency in require.';
-			return self::CODE_ERROR;
+			return static::CODE_ERROR;
 		}
-		
+
 		$warnings = $errors = [];
 		foreach ($lockInfo as $package => $version) {
 			$constraints = $jsonInfo[$package]['version'];
@@ -56,11 +56,11 @@ class Validator {
 
 			$definedMinimum = $this->normalizeVersion($constraint);
 			$version = $this->normalizeVersion($version);
-			
+
 			if (Comparator::equalTo($definedMinimum, $version)) {
 				continue;
 			}
-			
+
 			$message = 'Defined `' . $definedMinimum . '` as minimum, but is `' . $version . '`';
 			if ($jsonInfo[$package]['devVersion']) {
 				$warnings[$package] = $message;
@@ -109,7 +109,7 @@ class Validator {
 			if (preg_match('#^dev-#', $version)) {
 				continue;
 			}
-			
+
 			$devVersion = null;
 			if (isset($json['require-dev'][$package])) {
 				$devVersion = $this->stripVersion($json['require-dev'][$package]);
