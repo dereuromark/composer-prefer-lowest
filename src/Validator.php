@@ -56,6 +56,9 @@ class Validator {
 
 			$definedMinimum = $this->normalizeVersion($constraint);
 			$version = $this->normalizeVersion($version);
+			if ($version === '9999999-dev') {
+				continue;
+			}
 
 			if (Comparator::equalTo($definedMinimum, $version)) {
 				continue;
