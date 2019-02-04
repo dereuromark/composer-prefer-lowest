@@ -3,3 +3,4 @@ parameters:
         - tests/bootstrap.php
 
     ignoreErrors:
+        - '#Negated boolean expression is always false.#'
