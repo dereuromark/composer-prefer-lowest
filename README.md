@@ -94,7 +94,18 @@ It is advised to also raise your composer.json entry for the min PHP version her
         "php": ">=5.6",
 ``` 
 
-### TODOs
+## Local Composer Script Installation
+For local testing, when you do not want to modify your composer.json file, you can simple add this composer script:
+```
+"scripts": {
+    ...
+    "lowest": " validate-prefer-lowest",
+    "lowest-setup": "composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction && cp composer.json composer.backup && composer require --dev dereuromark/composer-prefer-lowest && mv composer.backup composer.json",
+```
+
+Then run `composer lowest-setup` to set up the script and finally `composer lowest` to execute.
+
+## TODOs
 - Better version handling, especially around special cases like suffixes.
 
 Help is greatly appreciated.
