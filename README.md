@@ -13,7 +13,7 @@ This is useful for all libraries that want to make sure
 - no silent regressions (like using too new methods of depending libraries) sneaked in
 
 For details, see [Why and when is this useful?](https://www.dereuromark.de/2019/01/04/test-composer-dependencies-with-prefer-lowest).
-This has been built after Composer didnt have the [motivation](https://github.com/composer/composer/issues/7849) for it.
+This has been built after Composer didn't have the [motivation](https://github.com/composer/composer/issues/7849) for it.
 
 **A total must-have** for
 - frameworks
