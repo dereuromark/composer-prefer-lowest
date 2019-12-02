@@ -1,4 +1,5 @@
 <?php
+
 namespace ComposerPreferLowest;
 
 use Composer\Semver\Comparator;
