@@ -82,6 +82,12 @@ In general it is best to just use all flags for your CI script:
 composer update --prefer-lowest --prefer-dist --prefer-stable --no-interaction
 ```
 
+### Display only
+If you want to just display the result in your CI report without failing the build, you could do:
+```
+vendor/bin/validate-prefer-lowest || true
+```
+
 ### PHP version
 In general: Use the minimum PHP version for `prefer-lowest` as defined in your composer.json.
 
