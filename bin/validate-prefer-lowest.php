@@ -24,5 +24,10 @@ if (!empty($_SERVER['PWD'])) {
 	$pathToComposerLock = rtrim($_SERVER['PWD'], DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 }
 
-$result = $validator->validate($pathToComposerLock);
+$options = !empty($_SERVER['argv']) ? $_SERVER['argv'] : [];
+if ($options) {
+	array_shift($options);
+}
+
+$result = $validator->validate($pathToComposerLock, $options);
 die($result);

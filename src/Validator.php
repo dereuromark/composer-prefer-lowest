@@ -3,6 +3,7 @@
 namespace ComposerPreferLowest;
 
 use Composer\Semver\Comparator;
+use Composer\Semver\Semver;
 use Composer\Semver\VersionParser;
 
 class Validator {
@@ -10,11 +11,15 @@ class Validator {
 	const CODE_SUCCESS = 0;
 	const CODE_ERROR = 1;
 
+	const MAJORS_ONLY = 'majors-only';
+	const MAJORS_ONLY_SHORT = 'm';
+
 	/**
 	 * @param string $path
+	 * @param string[] $options
 	 * @return int Returns 0 on success, otherwise error code.
 	 */
-	public function validate($path) {
+	public function validate($path, array $options = []) {
 		if (!$path) {
 			echo 'Path to composer.lock file not found' . PHP_EOL;
 			return static::CODE_ERROR;
@@ -32,16 +37,19 @@ class Validator {
 			return static::CODE_ERROR;
 		}
 
-		return $this->compare($lockFilePath, $jsonFilePath);
+		$compareOptions = $this->parseOptions($options);
+
+		return $this->compare($lockFilePath, $jsonFilePath, $compareOptions);
 	}
 
 	/**
 	 * @param string $lockFile
 	 * @param string $jsonFile
+	 * @param array $options
 	 *
 	 * @return int
 	 */
-	protected function compare($lockFile, $jsonFile) {
+	protected function compare($lockFile, $jsonFile, array $options) {
 		$jsonInfo = $this->parseJsonFromFile($jsonFile);
 		$lockInfo = $this->parseLockFromFile($lockFile, $jsonInfo);
 		if (!$jsonInfo || !$lockInfo) {
@@ -51,11 +59,7 @@ class Validator {
 
 		$warnings = $errors = [];
 		foreach ($lockInfo as $package => $version) {
-			$constraints = $jsonInfo[$package]['version'];
-			// We only need the first
-			$constraint = (new MinimumVersionParser())->parseConstraints($constraints);
-
-			$definedMinimum = $this->normalizeVersion($constraint);
+			$definedMinimum = $this->definedMinimum($jsonInfo, $package);
 			$version = $this->normalizeVersion($version);
 			if ($version === '9999999-dev') {
 				continue;
@@ -66,7 +70,7 @@ class Validator {
 			}
 
 			$message = 'Defined `' . $definedMinimum . '` as minimum, but is `' . $version . '`';
-			if ($jsonInfo[$package]['devVersion']) {
+			if ($jsonInfo[$package]['devVersion'] || $this->isAllowedNonMajor($definedMinimum, $version, $options)) {
 				$warnings[$package] = $message;
 			} else {
 				$errors[$package] = $message;
@@ -83,13 +87,28 @@ class Validator {
 
 		if ($warnings) {
 			$count = count($warnings);
-			echo $count . ' ' . ($count === 1 ? 'warning' : 'warnings') . ' (impossible to test minimum version here):' . PHP_EOL;
+			$text = 'impossible to test minimum version here or allowed as `--' . static::MAJORS_ONLY . '`/`-' . static::MAJORS_ONLY_SHORT . '`';
+			echo $count . ' ' . ($count === 1 ? 'warning' : 'warnings') . ' (' . $text . '):' . PHP_EOL;
 		}
 		foreach ($warnings as $package => $warning) {
 			echo ' - ' . $package . ': ' . $warning . PHP_EOL;
 		}
 
 		return !$errors ? static::CODE_SUCCESS : static::CODE_ERROR;
+	}
+
+	/**
+	 * @param array $jsonInfo
+	 * @param string $package
+	 *
+	 * @return string
+	 */
+	protected function definedMinimum(array $jsonInfo, $package) {
+		$constraints = $jsonInfo[$package]['version'];
+		// We only need the first
+		$constraint = (new MinimumVersionParser())->parseConstraints($constraints);
+
+		return $this->normalizeVersion($constraint);
 	}
 
 	/**
@@ -181,6 +200,37 @@ class Validator {
 	 */
 	protected function normalizeVersion($version) {
 		return (new VersionParser())->normalize($version);
+	}
+
+	/**
+	 * @param string[] $options
+	 *
+	 * @return array
+	 */
+	protected function parseOptions(array $options) {
+		$result = [
+			static::MAJORS_ONLY => false,
+		];
+		if (in_array('--' . static::MAJORS_ONLY, $options, true) || in_array('-' . static::MAJORS_ONLY_SHORT, $options, true)) {
+			$result[static::MAJORS_ONLY] = true;
+		}
+
+		return $result;
+	}
+
+	/**
+	 * @param string $definedMinimum x.y.z.0
+	 * @param string $version x.y.z.0
+	 * @param array $options
+	 *
+	 * @return bool
+	 */
+	protected function isAllowedNonMajor($definedMinimum, $version, array $options) {
+		if (!$options[static::MAJORS_ONLY]) {
+			return false;
+		}
+
+		return Semver::satisfies($version, '^' . $definedMinimum);
 	}
 
 }

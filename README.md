@@ -8,8 +8,8 @@
 
 This validator will strictly compare the specified minimum versions of your composer.json with the ones actually used by the `prefer-lowest` composer update command option.
 
-This is useful for all libraries that want to make sure 
-- **the defined minimum of each dependency is actually still being tested** 
+This is useful for all libraries that want to make sure
+- **the defined minimum of each dependency is actually still being tested**
 - no silent regressions (like using too new methods of depending libraries) sneaked in
 
 For details, see [Why and when is this useful?](https://www.dereuromark.de/2019/01/04/test-composer-dependencies-with-prefer-lowest).
@@ -42,7 +42,7 @@ E.g. for Travis CI:
 ```
 php:
   - 5.6
-  - 7.3
+  - 7.4
 
 env:
   global:
@@ -73,7 +73,7 @@ It returns the list of errors and exits with error code `1` if any violations ar
 Otherwise it returns with success code `0`.
 
 ### Prefer stable
-Usually `composer update --prefer-lowest` suffices. 
+Usually `composer update --prefer-lowest` suffices.
 Make sure you have `"prefer-stable": true` in your composer.json for this to work.
 Otherwise you might have to use the longer version as outlined above.
 
@@ -81,6 +81,13 @@ In general it is best to just use all flags for your CI script:
 ```
 composer update --prefer-lowest --prefer-dist --prefer-stable --no-interaction
 ```
+
+### Majors only
+If you want to only error the CI build for major constraint issues, use `--majors-only`/`-m` option:
+```
+vendor/bin/validate-prefer-lowest -m
+```
+The patch and minor issues will then be warnings only.
 
 ### Display only
 If you want to just display the result in your CI report without failing the build, you could do:
@@ -98,7 +105,7 @@ It is advised to also raise your composer.json entry for the min PHP version her
 ```
     "require": {
         "php": ">=5.6",
-``` 
+```
 
 ## Local Composer Script Installation
 For local testing, when you do not want to modify your composer.json file, you can simple add this composer script:
