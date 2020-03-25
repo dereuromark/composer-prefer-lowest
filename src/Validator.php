@@ -51,7 +51,7 @@ class Validator {
 	 */
 	protected function compare($lockFile, $jsonFile, array $options) {
 		$jsonInfo = $this->parseJsonFromFile($jsonFile);
-		$lockInfo = $this->parseLockFromFile($lockFile, $jsonInfo);
+		$lockInfo = $jsonInfo !== null ? $this->parseLockFromFile($lockFile, $jsonInfo) : null;
 		if ($jsonInfo === null || $lockInfo === null) {
 			echo 'Make sure composer.json and composer.lock files are valid and that you have at least one dependency in require.';
 			return static::CODE_ERROR;
