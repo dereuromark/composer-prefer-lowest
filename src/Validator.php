@@ -52,7 +52,7 @@ class Validator {
 	protected function compare($lockFile, $jsonFile, array $options) {
 		$jsonInfo = $this->parseJsonFromFile($jsonFile);
 		$lockInfo = $this->parseLockFromFile($lockFile, $jsonInfo);
-		if (!$jsonInfo || !$lockInfo) {
+		if ($jsonInfo === null || $lockInfo === null) {
 			echo 'Make sure composer.json and composer.lock files are valid and that you have at least one dependency in require.';
 			return static::CODE_ERROR;
 		}
@@ -113,14 +113,14 @@ class Validator {
 
 	/**
 	 * @param string $jsonFile
-	 * @return array
+	 * @return array|null
 	 */
 	protected function parseJsonFromFile($jsonFile) {
 		$content = file_get_contents($jsonFile);
 		$json = json_decode($content, true);
 
 		if (!$json || empty($json['require'])) {
-			return [];
+			return null;
 		}
 
 		$result = [];
@@ -167,13 +167,13 @@ class Validator {
 	/**
 	 * @param string $lockFile
 	 * @param array $jsonInfo
-	 * @return array
+	 * @return array|null
 	 */
 	protected function parseLockFromFile($lockFile, array $jsonInfo) {
 		$content = file_get_contents($lockFile);
 		$json = json_decode($content, true);
 		if (!$json) {
-			return [];
+			return null;
 		}
 
 		$result = [];
