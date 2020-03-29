@@ -1,0 +1,11 @@
+{
+	"packages": [
+		{
+			"name": "foo-bar/baz",
+			"version": "1.0.0-beta1"
+		}
+	],
+	"platform": {
+		"php": ">=7.2"
+	}
+}

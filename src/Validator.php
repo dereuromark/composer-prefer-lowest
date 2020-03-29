@@ -195,11 +195,20 @@ class Validator {
 	 * PHP has the issue of 1.4 !== 1.4.0, which is nonsense.
 	 * Also Composer requires normalization.
 	 *
+	 * We also strip beta and other tags, as we are mainly focused on
+	 * the version numbers for comparison.
+	 *
 	 * @param string $version
 	 * @return string
 	 */
 	protected function normalizeVersion($version) {
-		return (new VersionParser())->normalize($version);
+		$version = (new VersionParser())->normalize($version);
+
+		if (strpos($version, '-') !== false) {
+			$version = substr($version, 0, strpos($version, '-'));
+		}
+
+		return $version;
 	}
 
 	/**
