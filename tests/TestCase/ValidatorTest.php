@@ -32,6 +32,17 @@ class ValidatorTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testValidateRanges() {
+		$validator = new Validator();
+
+		$path = TESTS . 'files' . DS . 'ranges' . DS;
+		$returnCode = $validator->validate($path);
+		$this->assertSame($validator::CODE_SUCCESS, $returnCode);
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testValidateFail() {
 		$validator = new Validator();
 

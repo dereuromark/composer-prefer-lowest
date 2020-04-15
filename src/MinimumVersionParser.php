@@ -2,6 +2,9 @@
 
 namespace ComposerPreferLowest;
 
+use Composer\Semver\Constraint\MultiConstraint;
+use Composer\Semver\VersionParser;
+
 class MinimumVersionParser {
 
 	/**
@@ -12,10 +15,20 @@ class MinimumVersionParser {
 	 * @return string
 	 */
 	public function parseConstraints($constraints) {
-		$orConstraints = preg_split('{\s*\|\|?\s*}', trim($constraints));
-		$version = array_shift($orConstraints);
+		$constraintsObjects = (new VersionParser())->parseConstraints($constraints);
+		if ($constraintsObjects instanceof MultiConstraint) {
+			$version = $constraintsObjects->getConstraints()[0]->getPrettyString();
+		} else {
+			$version = $constraintsObjects->getPrettyString();
+		}
 
-		return $version;
+		if (strpos($version, ' ') === false) {
+			return $version;
+		}
+
+		preg_match('#([^=]+)#', $version, $matches);
+
+		return trim($matches[1]);
 	}
 
 }
