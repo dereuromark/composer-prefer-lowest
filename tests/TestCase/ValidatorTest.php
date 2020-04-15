@@ -43,6 +43,17 @@ class ValidatorTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testValidateWildcard() {
+		$validator = new Validator();
+
+		$path = TESTS . 'files' . DS . 'wildcard' . DS;
+		$returnCode = $validator->validate($path);
+		$this->assertSame($validator::CODE_SUCCESS, $returnCode);
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testValidateFail() {
 		$validator = new Validator();
 
