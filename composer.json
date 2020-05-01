@@ -32,7 +32,6 @@
 		"bin/validate-prefer-lowest"
 	],
 	"prefer-stable": true,
-	"minimum-stability": "dev",
 	"scripts": {
 		"test": "phpunit",
 		"phpstan": "phpstan analyse -c tests/phpstan.neon -l 5 src/",
