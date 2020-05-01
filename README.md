@@ -29,7 +29,7 @@ Also, if your library has no dependencies, you can skip prefer-lowest checks as 
 You want to give it a quick test-spin for one of your libraries? See what results it yields?
 ```
 composer update --prefer-lowest --prefer-dist --prefer-stable
-composer require --dev dereuromark/composer-prefer-lowest
+composer require --dev --update-with-all-dependencies dereuromark/composer-prefer-lowest
 vendor/bin/validate-prefer-lowest
 ```
 If there is no output, that's good. `echo $?` should return `0` (success).
@@ -113,7 +113,7 @@ For local testing, when you do not want to modify your composer.json file, you c
 "scripts": {
     ...
     "lowest": " validate-prefer-lowest",
-    "lowest-setup": "composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction && cp composer.json composer.backup && composer require --dev dereuromark/composer-prefer-lowest && mv composer.backup composer.json",
+    "lowest-setup": "composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction && cp composer.json composer.backup && composer require --dev --update-with-all-dependencies dereuromark/composer-prefer-lowest && mv composer.backup composer.json",
 ```
 
 Then run `composer lowest-setup` to set up the script and finally `composer lowest` to execute.
