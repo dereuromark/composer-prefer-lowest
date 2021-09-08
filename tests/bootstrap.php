@@ -1,4 +1,7 @@
 <?php
-
-define('DS', DIRECTORY_SEPARATOR);
-define('TESTS', __DIR__ . DS);
+if (!defined('DS')) {
+	define('DS', DIRECTORY_SEPARATOR);
+}
+if (!defined('TESTS')) {
+	define('TESTS', __DIR__ . DS);
+}
