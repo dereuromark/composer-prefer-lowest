@@ -10,12 +10,12 @@
 		}
 	],
 	"require": {
-		"php": ">=5.6",
+		"php": ">=7.2",
 		"ext-json": "*",
 		"composer/semver": "^1.4"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "^5.7 || ^6.0 || ^7.0",
+		"phpunit/phpunit": "^8.5 || ^9.5",
 		"fig-r/psr2r-sniffer": "dev-master"
 	},
 	"autoload": {
@@ -34,8 +34,8 @@
 	"prefer-stable": true,
 	"scripts": {
 		"test": "phpunit",
-		"phpstan": "phpstan analyse -c tests/phpstan.neon -l 5 src/",
-		"phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan && mv composer.backup composer.json",
+		"stan": "phpstan analyse",
+		"stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan && mv composer.backup composer.json",
 		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --extensions=php src/",
 		"cs-fix": "phpcbf -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --extensions=php src/"
 	},

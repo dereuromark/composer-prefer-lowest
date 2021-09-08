@@ -5,35 +5,39 @@ namespace ComposerPreferLowest;
 use Composer\Semver\Comparator;
 use Composer\Semver\Semver;
 use Composer\Semver\VersionParser;
+use RuntimeException;
 
 class Validator {
 
-	const CODE_SUCCESS = 0;
-	const CODE_ERROR = 1;
+	public const CODE_SUCCESS = 0;
+	public const CODE_ERROR = 1;
 
-	const MAJORS_ONLY = 'majors-only';
-	const MAJORS_ONLY_SHORT = 'm';
+	public const MAJORS_ONLY = 'majors-only';
+	public const MAJORS_ONLY_SHORT = 'm';
 
 	/**
 	 * @param string $path
 	 * @param string[] $options
 	 * @return int Returns 0 on success, otherwise error code.
 	 */
-	public function validate($path, array $options = []) {
+	public function validate(string $path, array $options = []): int {
 		if (!$path) {
 			echo 'Path to composer.lock file not found' . PHP_EOL;
+
 			return static::CODE_ERROR;
 		}
 
 		$lockFilePath = $path . 'composer.lock';
 		if (!file_exists($lockFilePath)) {
 			echo 'composer.lock file not found: ' . $lockFilePath . PHP_EOL;
+
 			return static::CODE_ERROR;
 		}
 
 		$jsonFilePath = $path . 'composer.json';
 		if (!file_exists($jsonFilePath)) {
 			echo 'composer.json file not found: ' . $jsonFilePath . PHP_EOL;
+
 			return static::CODE_ERROR;
 		}
 
@@ -49,11 +53,12 @@ class Validator {
 	 *
 	 * @return int
 	 */
-	protected function compare($lockFile, $jsonFile, array $options) {
+	protected function compare(string $lockFile, string $jsonFile, array $options): int {
 		$jsonInfo = $this->parseJsonFromFile($jsonFile);
 		$lockInfo = $jsonInfo !== null ? $this->parseLockFromFile($lockFile, $jsonInfo) : null;
 		if ($jsonInfo === null || $lockInfo === null) {
 			echo 'Make sure composer.json and composer.lock files are valid and that you have at least one dependency in require.';
+
 			return static::CODE_ERROR;
 		}
 
@@ -103,7 +108,7 @@ class Validator {
 	 *
 	 * @return string
 	 */
-	protected function definedMinimum(array $jsonInfo, $package) {
+	protected function definedMinimum(array $jsonInfo, string $package): string {
 		$constraints = $jsonInfo[$package]['version'];
 		// We only need the first
 		$constraint = (new MinimumVersionParser())->parseConstraints($constraints);
@@ -113,10 +118,14 @@ class Validator {
 
 	/**
 	 * @param string $jsonFile
+	 * @throws \RuntimeException
 	 * @return array|null
 	 */
-	protected function parseJsonFromFile($jsonFile) {
+	protected function parseJsonFromFile(string $jsonFile): ?array {
 		$content = file_get_contents($jsonFile);
+		if ($content === false) {
+			throw new RuntimeException('Cannot read file: ' . $jsonFile);
+		}
 		$json = json_decode($content, true);
 
 		if (!$json || empty($json['require'])) {
@@ -154,7 +163,7 @@ class Validator {
 	 *
 	 * @return string
 	 */
-	protected function stripVersion($version) {
+	protected function stripVersion(string $version): string {
 		$from = [
 			'>=',
 			'^',
@@ -167,10 +176,14 @@ class Validator {
 	/**
 	 * @param string $lockFile
 	 * @param array $jsonInfo
+	 * @throws \RuntimeException
 	 * @return array|null
 	 */
-	protected function parseLockFromFile($lockFile, array $jsonInfo) {
+	protected function parseLockFromFile(string $lockFile, array $jsonInfo): ?array {
 		$content = file_get_contents($lockFile);
+		if ($content === false) {
+			throw new RuntimeException('Cannot read file: ' . $lockFile);
+		}
 		$json = json_decode($content, true);
 		if (!$json) {
 			return null;
@@ -201,7 +214,7 @@ class Validator {
 	 * @param string $version
 	 * @return string
 	 */
-	protected function normalizeVersion($version) {
+	protected function normalizeVersion(string $version): string {
 		$version = (new VersionParser())->normalize($version);
 
 		if (strpos($version, '-') !== false) {
@@ -216,7 +229,7 @@ class Validator {
 	 *
 	 * @return array
 	 */
-	protected function parseOptions(array $options) {
+	protected function parseOptions(array $options): array {
 		$result = [
 			static::MAJORS_ONLY => false,
 		];
@@ -234,7 +247,7 @@ class Validator {
 	 *
 	 * @return bool
 	 */
-	protected function isAllowedNonMajor($definedMinimum, $version, array $options) {
+	protected function isAllowedNonMajor(string $definedMinimum, string $version, array $options): bool {
 		if (!$options[static::MAJORS_ONLY]) {
 			return false;
 		}
