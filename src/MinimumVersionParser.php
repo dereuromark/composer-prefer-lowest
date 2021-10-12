@@ -26,6 +26,12 @@ class MinimumVersionParser {
 			return $version;
 		}
 
+		if (strpos($version, '[==') === 0) {
+			preg_match('/^\[== ([^\s]+) /', $version, $matches);
+
+			return $matches[1];
+		}
+
 		preg_match('#([^>=]+)#', $version, $matches);
 
 		return trim($matches[1]);

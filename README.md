@@ -1,5 +1,5 @@
 # Composer Prefer Lowest Validator
-[![Build Status](https://api.travis-ci.org/dereuromark/composer-prefer-lowest.svg?branch=master)](https://travis-ci.org/dereuromark/composer-prefer-lowest)
+[![CI](https://github.com/dereuromark/composer-prefer-lowest/actions/workflows/ci.yml/badge.svg)](https://github.com/dereuromark/composer-prefer-lowest/actions/workflows/ci.yml)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/composer-prefer-lowest/v/stable.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/composer-prefer-lowest/license.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
