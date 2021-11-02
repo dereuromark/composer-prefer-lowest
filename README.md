@@ -1,7 +1,7 @@
 # Composer Prefer Lowest Validator
 [![CI](https://github.com/dereuromark/composer-prefer-lowest/actions/workflows/ci.yml/badge.svg)](https://github.com/dereuromark/composer-prefer-lowest/actions/workflows/ci.yml)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/composer-prefer-lowest/v/stable.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
-[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/composer-prefer-lowest/license.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
 [![Total Downloads](https://poser.pugx.org/dereuromark/composer-prefer-lowest/d/total.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
@@ -41,7 +41,7 @@ As such, it suffices to add it conditionally here.
 E.g. for Travis CI:
 ```
 php:
-  - 7.2
+  - 7.3
   - 8.1
 
 env:
@@ -50,7 +50,7 @@ env:
 
 matrix:
   include:
-    - php: 7.2
+    - php: 7.3
       env: PREFER_LOWEST=1
 
 before_script:
@@ -98,13 +98,13 @@ vendor/bin/validate-prefer-lowest || true
 ### PHP version
 In general: Use the minimum PHP version for `prefer-lowest` as defined in your composer.json.
 
-This tool requires minimum **PHP 7.2**, as such make sure your library to test also runs on this (or higher) for the `prefer-lowest` CI job.
-At this point, with it being EOL already, you can and should not use any PHP version below 7.2 anyway, or provide support for it.
+This tool requires minimum **PHP 7.3**, as such make sure your library to test also runs on this (or higher) for the `prefer-lowest` CI job.
+At this point, with it being EOL already, you can and should not use any PHP version below 7.3 anyway, or provide support for it.
 
-It is advised to also raise your composer.json entry for the min PHP version here. Use 7.2 or higher:
+It is advised to also raise your composer.json entry for the min PHP version here. Use 7.3 or higher:
 ```
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.3",
 ```
 
 ## Local Composer Script Installation
