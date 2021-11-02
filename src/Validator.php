@@ -9,15 +9,29 @@ use RuntimeException;
 
 class Validator {
 
+	/**
+	 * @var int
+	 */
 	public const CODE_SUCCESS = 0;
+
+	/**
+	 * @var int
+	 */
 	public const CODE_ERROR = 1;
 
+	/**
+	 * @var string
+	 */
 	public const MAJORS_ONLY = 'majors-only';
+
+	/**
+	 * @var string
+	 */
 	public const MAJORS_ONLY_SHORT = 'm';
 
 	/**
 	 * @param string $path
-	 * @param string[] $options
+	 * @param array<string> $options
 	 * @return int Returns 0 on success, otherwise error code.
 	 */
 	public function validate(string $path, array $options = []): int {
@@ -225,7 +239,7 @@ class Validator {
 	}
 
 	/**
-	 * @param string[] $options
+	 * @param array<string> $options
 	 *
 	 * @return array
 	 */

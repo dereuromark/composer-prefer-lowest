@@ -41,8 +41,8 @@ As such, it suffices to add it conditionally here.
 E.g. for Travis CI:
 ```
 php:
-  - 5.6
-  - 7.4
+  - 7.2
+  - 8.1
 
 env:
   global:
@@ -50,7 +50,7 @@ env:
 
 matrix:
   include:
-    - php: 5.6
+    - php: 7.2
       env: PREFER_LOWEST=1
 
 before_script:
@@ -98,13 +98,13 @@ vendor/bin/validate-prefer-lowest || true
 ### PHP version
 In general: Use the minimum PHP version for `prefer-lowest` as defined in your composer.json.
 
-This tool requires minimum PHP 5.6, as such make sure your library to test also runs on this (or higher) for the `prefer-lowest` CI job.
-At this point, with it being EOL already, you can and should not use any PHP version below 5.6 anyway, or provide support for it.
+This tool requires minimum **PHP 7.2**, as such make sure your library to test also runs on this (or higher) for the `prefer-lowest` CI job.
+At this point, with it being EOL already, you can and should not use any PHP version below 7.2 anyway, or provide support for it.
 
-It is advised to also raise your composer.json entry for the min PHP version here. Use 5.6 or higher:
+It is advised to also raise your composer.json entry for the min PHP version here. Use 7.2 or higher:
 ```
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.2",
 ```
 
 ## Local Composer Script Installation
