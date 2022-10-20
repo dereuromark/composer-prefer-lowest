@@ -6,4 +6,3 @@ if (!defined('TESTS')) {
 	define('TESTS', __DIR__ . DS);
 }
 
-define('TESTS', __DIR__ . DS);
