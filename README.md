@@ -1,10 +1,10 @@
 # Composer Prefer Lowest Validator
-[![CI](https://github.com/dereuromark/composer-prefer-lowest/actions/workflows/ci.yml/badge.svg)](https://github.com/dereuromark/composer-prefer-lowest/actions/workflows/ci.yml)
-[![Latest Stable Version](https://poser.pugx.org/dereuromark/composer-prefer-lowest/v/stable.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
+[![CI](https://github.com/spryker-sdk/composer-prefer-lowest/actions/workflows/ci.yml/badge.svg)](https://github.com/dereuromark/composer-prefer-lowest/actions/workflows/ci.yml)
+[![Latest Stable Version](https://poser.pugx.org/spryker-sdk/composer-prefer-lowest/v/stable.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
-[![License](https://poser.pugx.org/dereuromark/composer-prefer-lowest/license.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
+[![License](https://poser.pugx.org/spryker-sdk/composer-prefer-lowest/license.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
-[![Total Downloads](https://poser.pugx.org/dereuromark/composer-prefer-lowest/d/total.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
+[![Total Downloads](https://poser.pugx.org/spryker-sdk/composer-prefer-lowest/d/total.svg)](https://packagist.org/packages/dereuromark/composer-prefer-lowest)
 
 This validator will strictly compare the specified minimum versions of your composer.json with the ones actually used by the `prefer-lowest` composer update command option.
 
@@ -29,7 +29,7 @@ Also, if your library has no dependencies, you can skip prefer-lowest checks as 
 You want to give it a quick test-spin for one of your libraries? See what results it yields?
 ```
 composer update --prefer-lowest --prefer-dist --prefer-stable
-composer require --dev --update-with-all-dependencies dereuromark/composer-prefer-lowest
+composer require --dev --update-with-all-dependencies spryker-sdk/composer-prefer-lowest
 vendor/bin/validate-prefer-lowest
 ```
 If there is no output, that's good. `echo $?` should return `0` (success).
@@ -56,7 +56,7 @@ matrix:
 before_script:
   - if [[ $PREFER_LOWEST != 1 ]]; then composer install --prefer-source --no-interaction; fi
   - if [[ $PREFER_LOWEST == 1 ]]; then composer update --prefer-lowest --prefer-dist --prefer-stable --no-interaction; fi
-  - if [[ $PREFER_LOWEST == 1 ]]; then composer require --dev dereuromark/composer-prefer-lowest; fi
+  - if [[ $PREFER_LOWEST == 1 ]]; then composer require --dev spryker-sdk/composer-prefer-lowest; fi
 
 script:
   - if [[ $DEFAULT == 1 ]]; then vendor/bin/phpunit; fi
@@ -113,7 +113,7 @@ For local testing, when you do not want to modify your composer.json file, you c
 "scripts": {
     ...
     "lowest": " validate-prefer-lowest",
-    "lowest-setup": "composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction && cp composer.json composer.backup && composer require --dev --update-with-all-dependencies dereuromark/composer-prefer-lowest && mv composer.backup composer.json",
+    "lowest-setup": "composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction && cp composer.json composer.backup && composer require --dev --update-with-all-dependencies spryker-sdk/composer-prefer-lowest && mv composer.backup composer.json",
 ```
 
 Then run `composer lowest-setup` to set up the script and finally `composer lowest` to execute.

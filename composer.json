@@ -1,5 +1,5 @@
 {
-	"name": "dereuromark/composer-prefer-lowest",
+	"name": "spryker-sdk/composer-prefer-lowest",
 	"description": "Checks prefer-lowest more strictly. Add-on for CI.",
 	"type": "library",
 	"license": "MIT",
