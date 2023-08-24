@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.3",
+		"php": ">=7.4",
 		"ext-json": "*",
 		"composer/semver": "^1.7 || ^2.0 || ^3.0"
 	},
