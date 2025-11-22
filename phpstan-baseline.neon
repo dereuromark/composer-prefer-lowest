@@ -1,0 +1,43 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method ComposerPreferLowest\\Validator\:\:compare\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Validator.php
+
+		-
+			message: '#^Method ComposerPreferLowest\\Validator\:\:definedMinimum\(\) has parameter \$jsonInfo with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Validator.php
+
+		-
+			message: '#^Method ComposerPreferLowest\\Validator\:\:isAllowedNonMajor\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Validator.php
+
+		-
+			message: '#^Method ComposerPreferLowest\\Validator\:\:parseJsonFromFile\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Validator.php
+
+		-
+			message: '#^Method ComposerPreferLowest\\Validator\:\:parseLockFromFile\(\) has parameter \$jsonInfo with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Validator.php
+
+		-
+			message: '#^Method ComposerPreferLowest\\Validator\:\:parseLockFromFile\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Validator.php
+
+		-
+			message: '#^Method ComposerPreferLowest\\Validator\:\:parseOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Validator.php
